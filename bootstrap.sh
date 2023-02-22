@@ -43,7 +43,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 # - update .zshrc plugins 
-plugins=($$(awk '/^plugins=/ {sub(/^.*\(/, ""); sub(/\).*$/, ""); print}' ~/.zshrc))
+plugins=($(awk '/^plugins=/ {sub(/^.*\(/, ""); sub(/\).*$/, ""); print}' ~/.zshrc))
 new_plugins=("zsh-autosuggestions" "zsh-syntax-highlighting")
 
 for plugin in "${new_plugins[@]}"; do
@@ -54,7 +54,7 @@ done
 
 plugins=$(printf " %s" "${plugins[@]}")
 plugins=${plugins:1}
-set -i "s/^plugins=(.*)/plugins=($plugins)/g" ~/.zshrc
+sed -i "s/^plugins=(.*)/plugins=($plugins)/g" ~/.zshrc
 
 # Install fonts
 ##############################################################
